@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BasePage {
 
-    protected WebDriver driver;
+    WebDriver driver;
 
     protected BasePage(WebDriver driver) {
         this.driver = driver;
