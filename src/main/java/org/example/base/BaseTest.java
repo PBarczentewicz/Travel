@@ -27,10 +27,7 @@ public class BaseTest {
         driver = driverManager.getDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("\"Java Course - Java from Basics to Expert.\"\n" +
-                "\n" +
-                "\n" +
-                "\n");
+        driver.get("https://www.demoblaze.com/index.html");
         navigateToCommonPage();
     }
 
