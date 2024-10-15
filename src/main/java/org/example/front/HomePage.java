@@ -2,6 +2,7 @@ package org.example.front;
 
 import org.example.base.BasePage;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +15,6 @@ public class HomePage extends BasePage {
         super(oDriver);
         this.driver = oDriver;
     }
-
 
     public HomePage setEmail(String email) {
         findById("recipient-email").sendKeys(email);
@@ -86,5 +86,56 @@ public class HomePage extends BasePage {
         String thanksTextExpected = "Thank you for your purchase!";
 
         Assertions.assertEquals(thanksTextExpected, thanksTextActual);
+    }
+
+    public HomePage clickLoginButton() {
+        findById("login2").click();
+        return this;
+    }
+
+    public HomePage setLoginUsername(String loginUsername) {
+        findById("loginusername").sendKeys(loginUsername);
+        return this;
+    }
+
+    public HomePage setLoginPassword(String loginPassword) {
+        findById("loginpassword").sendKeys(loginPassword);
+        return this;
+    }
+
+    public HomePage clickLoginButton2() {
+        findByXpath("//*[@onclick='logIn()']").click();
+        return this;
+    }
+
+    public void logiAndPasswordOk() {
+        WebElement temp = driver.findElement(By.id("nameofuser"));
+        String welcomeAdmin = temp.getText();
+        String textExpected = "Welcome admin";
+
+        Assertions.assertEquals(textExpected, welcomeAdmin);
+    }
+
+    public void OkUserPaswordWrong() {
+        driver.switchTo().alert();
+        String alertText = driver.switchTo().alert().getText();
+
+        Assertions.assertEquals("Wrong password.", alertText);
+
+    }
+
+    public void wrongUserWrongPassword() {
+        Alert wrongPassword = driver.switchTo().alert();
+        String alertText = wrongPassword.getText();
+
+        Assertions.assertEquals("User does not exist.", alertText);
+        wrongPassword.accept();
+    }
+
+    public void wrongUserOkPassword() {
+        driver.switchTo().alert();
+        String alertText = driver.switchTo().alert().getText();
+
+        Assertions.assertEquals("User does not exist.", alertText);
     }
 }

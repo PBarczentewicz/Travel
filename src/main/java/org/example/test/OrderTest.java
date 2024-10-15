@@ -12,16 +12,13 @@ public class OrderTest extends BaseTest {
         navigateToHomePage();
         homePage.switchToOrderCard();
         homePage.findByXpath("//button[@class='btn btn-success']").click();
-
-        homePage
-                .setNameInOrder("Tomas")
+        homePage.setNameInOrder("Tomas")
                 .setCountry("Poland")
                 .setCity("New York")
                 .setCreditCard("1111 2222 3333 4444 5555")
                 .setMonth("01")
                 .setYear("2025")
                 .clickPurchaseButton();
-
         homePage.assertSuccesOrder();
     }
 }

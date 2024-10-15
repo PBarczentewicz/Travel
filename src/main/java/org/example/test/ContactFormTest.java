@@ -10,13 +10,6 @@ public class ContactFormTest extends BaseTest {
     @Test
     public void contactFormFront (){
         navigateToHomePage();
-
         homePage.findByXpath("//a[@class='nav-link']").click();
-
-
-
-       // WebElement contactForm = homePage.findByXpath("//a[@class='nav-link']");
-       // contactForm.click();
-
     }
 }
