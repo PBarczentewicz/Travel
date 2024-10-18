@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginTest extends BaseTest {
 
@@ -23,19 +26,23 @@ public class LoginTest extends BaseTest {
                 .setLoginPassword(loginPassword)
                 .clickLoginButton2();
 
-        switch (result) {
-            case "ok":
-                homePage.logiAndPasswordOk();
-                break;
-            case "wrongUserWrongPassword":
-                homePage.wrongUserWrongPassword();
-                break;
-            case "okUserWrongPassword":
-                homePage.OkUserPaswordWrong();
-                break;
-            case "wrongUserOkPassword":
-                homePage.wrongUserOkPassword();
-                break;
+        if (result == "ok"){
+            homePage.logiAndPasswordOk();}
+        else {
+            switch (result) {
+                case "ok":
+                    homePage.logiAndPasswordOk();
+                    break;
+                case "wrongUserWrongPassword":
+                    homePage.wrongUserWrongPassword();
+                    break;
+                case "okUserWrongPassword":
+                    homePage.OkUserPaswordWrong();
+                    break;
+                case "wrongUserOkPassword":
+                    homePage.wrongUserOkPassword();
+                    break;
+            }
         }
     }
 }

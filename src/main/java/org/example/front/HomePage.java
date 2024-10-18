@@ -6,6 +6,10 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage {
 
@@ -112,6 +116,10 @@ public class HomePage extends BasePage {
         WebElement temp = driver.findElement(By.id("nameofuser"));
         String welcomeAdmin = temp.getText();
         String textExpected = "Welcome admin";
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement welcomeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
+        Assertions.assertEquals("Welcome admin", welcomeMessage.getText());
 
         Assertions.assertEquals(textExpected, welcomeAdmin);
     }
