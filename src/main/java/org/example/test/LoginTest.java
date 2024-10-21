@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class LoginTest extends BaseTest {
-
     @ParameterizedTest
     @CsvSource({
             "admin, admin, ok",
@@ -30,14 +29,11 @@ public class LoginTest extends BaseTest {
             homePage.logiAndPasswordOk();}
         else {
             switch (result) {
-                case "ok":
-                    homePage.logiAndPasswordOk();
-                    break;
                 case "wrongUserWrongPassword":
                     homePage.wrongUserWrongPassword();
                     break;
                 case "okUserWrongPassword":
-                    homePage.OkUserPaswordWrong();
+                    homePage.okUserWrongPassword();
                     break;
                 case "wrongUserOkPassword":
                     homePage.wrongUserOkPassword();
