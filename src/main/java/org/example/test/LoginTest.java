@@ -1,13 +1,8 @@
 package org.example.test;
 
 import org.example.base.BaseTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class LoginTest extends BaseTest {
     @ParameterizedTest
@@ -23,23 +18,22 @@ public class LoginTest extends BaseTest {
         homePage.clickLoginButton();
         homePage.setLoginUsername(loginUsername)
                 .setLoginPassword(loginPassword)
-                .clickLoginButton2();
+                .clickFinalLoginButton();
 
-        if (result == "ok"){
-            homePage.logiAndPasswordOk();}
-        else {
-            switch (result) {
-                case "wrongUserWrongPassword":
-                    homePage.wrongUserWrongPassword();
-                    break;
-                case "okUserWrongPassword":
-                    homePage.okUserWrongPassword();
-                    break;
-                case "wrongUserOkPassword":
-                    homePage.wrongUserOkPassword();
-                    break;
-            }
+        switch (result) {
+            case "ok":
+                homePage.assertLoginAndPasswordOk();
+            case "wrongUserWrongPassword":
+                homePage.assertWrongUserWrongPassword();
+                break;
+            case "okUserWrongPassword":
+                homePage.assertOkUserWrongPassword();
+                break;
+            case "wrongUserOkPassword":
+                homePage.assertWrongUserOkPassword();
+                break;
         }
     }
 }
+
 
