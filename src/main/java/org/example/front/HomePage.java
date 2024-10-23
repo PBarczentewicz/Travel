@@ -14,20 +14,18 @@ import java.time.Duration;
 public class HomePage extends BasePage {
 
     private final WebDriver driver;
-
     private By endBUttonForLog = By.xpath("//button[@onclick='logIn()']");
-
     enum id {
-        WELCOME_ADMIN("nameofuser"),
+        WELCOME_ADMIN_BUTTON("nameofuser"),
         LOGIN_USERNAME("loginusername"),
-        LOGIN_PASSWORD("loginpassword");
+        LOGIN_PASSWORD("loginpassword"),
+        LOGIN_BUTTON("login2");
 
         private final String value;
 
         id(String value) {
             this.value = value;
         }
-
         public String getValue() {
             return value;
         }
@@ -111,7 +109,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage clickLoginButton() {
-        findById("login2").click();
+        findById(id.LOGIN_BUTTON.value).click();
         return this;
     }
 
@@ -143,8 +141,8 @@ public class HomePage extends BasePage {
 
     public void assertLoginAndPasswordOk() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOf(findById("nameofuser")));
-        WebElement temp = driver.findElement(By.id("nameofuser"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id.WELCOME_ADMIN_BUTTON.value)));
+        WebElement temp = driver.findElement(By.id(id.WELCOME_ADMIN_BUTTON.value));
         String welcomeAdmin = temp.getText();
 
         Assertions.assertEquals("Welcome admin", welcomeAdmin);
