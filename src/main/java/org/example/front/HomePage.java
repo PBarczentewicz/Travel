@@ -143,10 +143,11 @@ public class HomePage extends BasePage {
 
     public void assertLoginAndPasswordOk() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id.WELCOME_ADMIN.value)));
-        WebElement welcomeAdmin = driver.findElement(By.id(id.WELCOME_ADMIN.value));
-        String succesLog = welcomeAdmin.getText();
-        Assertions.assertEquals("Welcome admin", succesLog);
+        wait.until(ExpectedConditions.visibilityOf(findById("nameofuser")));
+        WebElement temp = driver.findElement(By.id("nameofuser"));
+        String welcomeAdmin = temp.getText();
+
+        Assertions.assertEquals("Welcome admin", welcomeAdmin);
     }
 
     public void assertOkUserWrongPassword() {

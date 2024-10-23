@@ -10,7 +10,7 @@ public class LoginTest extends BaseTest {
             "admin, admin, ok",
             "admin1, admin1, wrongUserWrongPassword",
             "admin, admin1, okUserWrongPassword",
-            "admin1, admin, wrongUserOkPassword"
+            "admin1, admin, wrongUserOkPassword",
     })
 
     public void LoginForm(String loginUsername, String loginPassword, String result) {
@@ -23,6 +23,7 @@ public class LoginTest extends BaseTest {
         switch (result) {
             case "ok":
                 homePage.assertLoginAndPasswordOk();
+                break;
             case "wrongUserWrongPassword":
                 homePage.assertWrongUserWrongPassword();
                 break;
