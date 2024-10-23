@@ -18,12 +18,13 @@ public class HomePage extends BasePage {
     private By endBUttonForLog = By.xpath("//button[@onclick='logIn()']");
 
     enum id {
-        loginUsername("loginusername"),
-        loginPassword("loginpassword");
+        WELCOME_ADMIN("nameofuser"),
+        LOGIN_USERNAME("loginusername"),
+        LOGIN_PASSWORD("loginpassword");
 
         private final String value;
 
-        id (String value) {
+        id(String value) {
             this.value = value;
         }
 
@@ -115,24 +116,25 @@ public class HomePage extends BasePage {
     }
 
     public HomePage setLoginUsername(String loginUsername) {
-        findById(id.loginUsername.value).sendKeys(loginUsername);
+        findById(id.LOGIN_USERNAME.value).sendKeys(loginUsername);
         return this;
     }
 
     public HomePage setLoginPassword(String loginPassword) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.textToBePresentInElementValue(By.id(id.loginUsername.value), ""));
-        findById(id.loginPassword.value).sendKeys(loginPassword);
+        wait.until(ExpectedConditions.textToBePresentInElementValue(By.id(id.LOGIN_USERNAME.value), ""));
+        findById(id.LOGIN_PASSWORD.value).sendKeys(loginPassword);
         return this;
     }
 
     public HomePage clickFinalLoginButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.textToBePresentInElementValue(By.id(id.loginPassword.value), ""));
+        wait.until(ExpectedConditions.textToBePresentInElementValue(By.id(id.LOGIN_PASSWORD.value), ""));
         driver.findElement(endBUttonForLog).click();
         return this;
     }
-    private void assertResult (String expectedMessage) {
+
+    private void assertResult(String expectedMessage) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         Alert alert = wait.until(ExpectedConditions.alertIsPresent());
         String alertText = alert.getText();
@@ -140,7 +142,11 @@ public class HomePage extends BasePage {
     }
 
     public void assertLoginAndPasswordOk() {
-        assertResult("Welcome admin");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id.WELCOME_ADMIN.value)));
+        WebElement welcomeAdmin = driver.findElement(By.id(id.WELCOME_ADMIN.value));
+        String succesLog = welcomeAdmin.getText();
+        Assertions.assertEquals("Welcome admin", succesLog);
     }
 
     public void assertOkUserWrongPassword() {
@@ -152,6 +158,6 @@ public class HomePage extends BasePage {
     }
 
     public void assertWrongUserOkPassword() {
-       assertResult("Wrong password.");
+        assertResult("Wrong password.");
     }
 }
